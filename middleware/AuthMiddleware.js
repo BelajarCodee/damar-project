@@ -63,7 +63,7 @@ class AuthMiddleware{
     async IsLogin(req, res, next) {
     if (!req.session.userId) {
       // Pengguna belum masuk (belum terotentikasi), beri respon "Akses terlarang"
-      return res.status(403).json({ msg: "Akses terlarang" });
+      return res.status(403).json({ msg: "Akses terlarang" })
     }
     next();
   }
