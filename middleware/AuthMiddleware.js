@@ -1,7 +1,7 @@
 const Users = require("../models/UserModel");
 
 class AuthMiddleware{
-    async verifyUser(req,res,next){
+    async IsUser(req,res,next){
         if(!req.session.userId){
             return res.status(401).json({msg: "mohon login ke akun anda"})
         }
@@ -21,7 +21,7 @@ class AuthMiddleware{
         next();
     }
 
-    async verifyAdmin(req,res,next){
+    async IsAdmin(req,res,next){
         const user = await Users.findOne({
             where:{
                 id: req.session.userId
@@ -36,7 +36,7 @@ class AuthMiddleware{
         next();
     }
 
-    async verifyScanner(req,res,next){
+    async IsScanner(req,res,next){
         const user = await Users.findOne({
             where:{
                 id: req.session.userId
@@ -50,6 +50,23 @@ class AuthMiddleware{
         }
         next();
     }
+
+    async IsTamu(req, res, next) {
+        if (req.session.userId) {
+            // Pengguna telah terotentikasi, beri respon "Akses terlarang"
+            return res.status(403).json({ msg: "Akses terlarang" });
+        }
+        // Pengguna belum masuk (belum terotentikasi), izinkan akses
+        next();
+    }
+
+    async IsLogin(req, res, next) {
+    if (!req.session.userId) {
+      // Pengguna belum masuk (belum terotentikasi), beri respon "Akses terlarang"
+      return res.status(403).json({ msg: "Akses terlarang" });
+    }
+    next();
+  }
 }
 
 module.exports = new AuthMiddleware

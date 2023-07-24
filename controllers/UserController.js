@@ -99,6 +99,45 @@ class UserController {
       return res.status(500).json({ msg: 'Terjadi kesalahan saat register' });
     }
   }
+
+  async UserUpdate(req,res){
+    try {
+      const userId = req.session.userId;
+      const User = await Users.findOne({
+        where: {
+          id: userId
+        }
+      });
+
+      if(!user){
+        res.status(404).json({msg: "User tidak ditemukan"})
+      };
+      const {name, password, veryPassword} = req.body;
+        let hashPassword;
+        if(password === "" || password === null){
+          hashPassword = User.password
+        }else{
+          hashPassword = await argon2.hash(password);
+        }
+        if(password !== veryPassword){
+          return res.status(400).json({msg: "password tidak sama"})
+        }
+
+        await Users.update({
+          name: name,
+          password: hashPassword,
+        },{
+          where:{
+            id: userId
+          }
+        });
+        res.status(200).json({msg: "User Updated"})
+
+    } catch (error) {
+      console.error('Terjadi kesalahan:', error);
+      return res.status(500).json({ msg: 'Terjadi kesalahan saat Update' });
+    }
+  }
 }
 
 module.exports = new UserController();

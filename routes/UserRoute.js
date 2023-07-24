@@ -6,11 +6,11 @@ const AuthMiddleware = require('../middleware/AuthMiddleware');
 
 const router =express.Router()
 
-router.get('/me', AuthMiddleware.verifyUser, AuthController.Me)
-router.post('/login', AuthController.login)
-router.delete('/logout', AuthController.logout)
+router.get('/me', AuthMiddleware.IsUser, AuthController.Me)
 
-router.post('/register', UserController.register);
+router.post('/login', AuthMiddleware.IsTamu, AuthController.login)
+router.delete('/logout',  AuthMiddleware.IsLogin, AuthController.logout)
 
+router.post('/register',  AuthMiddleware.IsTamu, UserController.register);
 
 module.exports = router;
