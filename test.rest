@@ -11,4 +11,23 @@ Content-Type: application/json
     "veryPassword": "adliasu"
 }
 ###
+#login
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "email":"hackingtopia0057@gmail.com",
+    "password": "adliasu"
+}
+
+###
+#me
+GET http://localhost:5000/me
+
+###
+
+#logout
+delete http://localhost:5000/logout
+
+###
 
