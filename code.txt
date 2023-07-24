@@ -1,0 +1,19 @@
+Kode Status 200 (OK): Menunjukkan permintaan sukses dan server memberikan respons yang benar.
+
+Kode Status 201 (Created): Menunjukkan bahwa permintaan untuk membuat entitas baru telah berhasil.
+
+Kode Status 204 (No Content): Menunjukkan bahwa permintaan telah berhasil diproses oleh server, tetapi tidak ada konten yang perlu dikirimkan kembali.
+
+Kode Status 400 (Bad Request): Menunjukkan bahwa permintaan yang dikirim oleh klien memiliki kesalahan atau tidak dapat dipahami oleh server.
+
+Kode Status 401 (Unauthorized): Menunjukkan bahwa klien tidak memiliki otorisasi atau akses yang diperlukan untuk mengakses sumber daya yang diminta.
+
+Kode Status 403 (Forbidden): Menunjukkan bahwa server telah memahami permintaan, tetapi menolak untuk mengizinkan akses.
+
+Kode Status 404 (Not Found): Menunjukkan bahwa server tidak dapat menemukan sumber daya yang diminta oleh klien.
+
+Kode Status 409 (Conflict): Menunjukkan bahwa permintaan tidak dapat diproses karena ada konflik dengan sumber daya yang ada di server.
+
+Kode Status 500 (Internal Server Error): Menunjukkan bahwa terjadi kesalahan yang tidak terduga di sisi server saat memproses permintaan.
+
+Kode Status 503 (Service Unavailable): Menunjukkan bahwa server tidak dapat menangani permintaan karena sementara tidak tersedia atau sedang mengalami pemeliharaan.

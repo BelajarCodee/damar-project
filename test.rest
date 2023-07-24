@@ -1,0 +1,14 @@
+GET http://localhost:5000/
+###
+
+POST http://localhost:5000/register
+Content-Type: application/json
+
+{
+    "name": "adliasu",
+    "email":"hackingtopia0057@gmail.com",
+    "password": "adliasu",
+    "veryPassword": "adliasu"
+}
+###
+
