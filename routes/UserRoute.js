@@ -8,6 +8,7 @@ const ScannerController = require('../controllers/ScannerController');
 const router =express.Router()
 
 router.get('/me', AuthMiddleware.IsLogin, AuthController.Me)
+// router.post('/me/update',AuthMiddleware.IsLogin, UserController.UserUpdate)
 
 router.post('/login', AuthMiddleware.IsTamu, AuthController.login)
 router.delete('/logout',  AuthMiddleware.IsLogin, AuthController.logout)

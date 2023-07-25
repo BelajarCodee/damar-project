@@ -21,6 +21,17 @@ Content-Type: application/json
 }
 
 ###
+# #update user
+# POST http://localhost:5000/me/update
+# Content-Type: application/json
+
+# {
+#     "name": "mahiru",
+#     "email":"mahiru@gmail.com",
+#     "password": "mahiru123"
+# }
+
+###
 #me
 GET http://localhost:5000/me
 

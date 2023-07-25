@@ -100,44 +100,91 @@ class UserController {
     }
   }
 
-  async UserUpdate(req,res){
-    try {
-      const userId = req.session.userId;
-      const User = await Users.findOne({
-        where: {
-          id: userId
-        }
-      });
+  // async UserUpdate(req, res) {
+  //   try {
+  //     const userId = req.session.userId;
+  //     const user = await Users.findOne({
+  //       where: {
+  //         id: userId
+  //       }
+  //     });
 
-      if(!user){
-        res.status(404).json({msg: "User tidak ditemukan"})
-      };
-      const {name, password, veryPassword} = req.body;
-        let hashPassword;
-        if(password === "" || password === null){
-          hashPassword = User.password
-        }else{
-          hashPassword = await argon2.hash(password);
-        }
-        if(password !== veryPassword){
-          return res.status(400).json({msg: "password tidak sama"})
-        }
+  //     if (!user) {
+  //       return res.status(404).json({ msg: "User tidak ditemukan" });
+  //     }
 
-        await Users.update({
-          name: name,
-          password: hashPassword,
-        },{
-          where:{
-            id: userId
-          }
-        });
-        res.status(200).json({msg: "User Updated"})
+  //     const { name, email, password, veryPassword } = req.body;
 
-    } catch (error) {
-      console.error('Terjadi kesalahan:', error);
-      return res.status(500).json({ msg: 'Terjadi kesalahan saat Update' });
-    }
-  }
+  //     if (email && email !== user.email) {
+  //       const checkEmail = await Users.findOne({ where: { email } });
+  //       if (checkEmail) {
+  //         return res.status(409).json({ msg: "Email sudah terdaftar" });
+  //       }
+
+  //       // Hapus QR code lama dari filesystem
+  //       const qrCodeFilePath = path.join('public', 'qrcode', `${user.qr}.png`);
+  //       fs.unlinkSync(qrCodeFilePath);
+
+  //       // Buat QR code baru berdasarkan email yang baru
+  //       const now = dayjs();
+  //       const Y = now.year();
+  //       const M = now.month();
+  //       const D = now.date();
+  //       const H = now.hour();
+  //       const I = now.minute();
+  //       const S = now.second();
+  //       const isiQr = `http://localhost/scanner/${email}`;
+  //       const namaQr = `${email}-${Y}-${M}-${D}-${H}-${I}-${S}`;
+  //       qrcode.toDataURL(isiQr, { errorCorrectionLevel: 'H' }, async (err, url) => {
+  //         if (err) {
+  //           console.error('Terjadi kesalahan saat membuat QR code:', err);
+  //           return res.status(500).json({ msg: 'Terjadi kesalahan saat membuat QR code' });
+  //         }
+  //         const qrCodeFilePathNew = path.join('public', 'qrcode', `${namaQr}.png`);
+  //         fs.writeFileSync(qrCodeFilePathNew, url.split(',')[1], 'base64');
+
+  //         // Perbarui data pengguna dengan email baru dan QR code baru
+  //         await Users.update(
+  //           {
+  //             name,
+  //             email,
+  //             qr: namaQr,
+  //             password: password ? await argon2.hash(password) : user.password,
+  //           },
+  //           {
+  //             where: {
+  //               id: userId
+  //             }
+  //           }
+  //         );
+
+  //         res.status(200).json({ msg: "Data pengguna berhasil diperbarui" });
+  //       });
+  //     } else {
+  //       // Jika email tidak diubah, tetap gunakan email yang ada di database
+  //       if (password && password !== veryPassword) {
+  //         return res.status(400).json({ msg: "Password tidak sama, silahkan masukan kembali" });
+  //       }
+
+  //       await Users.update(
+  //         {
+  //           name,
+  //           password: password ? await argon2.hash(password) : user.password,
+  //         },
+  //         {
+  //           where: {
+  //             id: userId
+  //           }
+  //         }
+  //       );
+
+  //       res.status(200).json({ msg: "Data pengguna berhasil diperbarui" });
+  //     }
+  //   } catch (error) {
+  //     console.error('Terjadi kesalahan:', error);
+  //     return res.status(500).json({ msg: 'Terjadi kesalahan saat Update' });
+  //   }
+  // }
 }
 
 module.exports = new UserController();
