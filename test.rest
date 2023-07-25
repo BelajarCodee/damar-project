@@ -16,8 +16,8 @@ POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-    "email":"hackingtopia0057@gmail.com",
-    "password": "adliasu"
+    "email":"muhamaddamar1812@gmail.com",
+    "password": "mahiru123"
 }
 
 ###
@@ -32,3 +32,18 @@ delete http://localhost:5000/logout
 ###
 #get all user
 GET http://localhost:5000/users
+
+###
+#getOneUserScanner
+GET http://localhost:5000/scanner/hackingtopia0057@gmail.com
+
+###
+#updateKehadiran
+POST http://localhost:5000/scanner/hackingtopia0057@gmail.com
+Content-Type: application/json
+
+{
+    "hadir": "hadir",
+    "makanSiang": "",
+    "Snack": "",
+}
