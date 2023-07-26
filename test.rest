@@ -5,10 +5,10 @@ POST http://localhost:5000/register
 Content-Type: application/json
 
 {
-    "name": "adliasu",
-    "email":"hackingtopia0057@gmail.com",
-    "password": "adliasu",
-    "veryPassword": "adliasu"
+    "name": "",
+    "email":"",
+    "password": "",
+    "veryPassword": ""
 }
 ###
 #login
@@ -16,20 +16,9 @@ POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-    "email":"muhamadamae181205@gmail.com",
-    "password": "damar123"
+    "email":"",
+    "password": ""
 }
-
-###
-# #update user
-# POST http://localhost:5000/me/update
-# Content-Type: application/json
-
-# {
-#     "name": "mahiru",
-#     "email":"mahiru@gmail.com",
-#     "password": "mahiru123"
-# }
 
 ###
 #me
@@ -46,15 +35,15 @@ GET http://localhost:5000/users
 
 ###
 #getOneUserScanner
-GET http://localhost:5000/scanner/hackingtopia0057@gmail.com
+GET http://localhost:5000/scanner/example@gmail.com
 
 ###
 #updateKehadiran
-POST http://localhost:5000/scanner/hackingtopia0057@gmail.com
+POST http://localhost:5000/scanner/example@gmail.com
 Content-Type: application/json
 
 {
-    "hadir": "hadir",
+    "hadir": "",
     "makanSiang": "",
     "Snack": "",
 }
@@ -65,7 +54,7 @@ POST http://localhost:5000/test
 Content-Type: application/json
 
 {
-    "role": "user"
+    "role": ""
 }
 
 ###
@@ -78,9 +67,9 @@ POST http://localhost:5000/admin
 Content-Type: application/json
 
 {
-  "keyword": "hacking"
+  "keyword": ""
 }
 
 ###
 #deleted
-DELETE http://localhost:5000/admin/deleted/8
+DELETE http://localhost:5000/admin/deleted/id
