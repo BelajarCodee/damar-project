@@ -16,8 +16,8 @@ POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-    "email":"muhamaddamar1812@gmail.com",
-    "password": "mahiru123"
+    "email":"muhamadamae181205@gmail.com",
+    "password": "damar123"
 }
 
 ###
@@ -57,4 +57,41 @@ Content-Type: application/json
     "hadir": "hadir",
     "makanSiang": "",
     "Snack": "",
+}
+
+###
+#hitung role
+POST http://localhost:5000/test
+Content-Type: application/json
+
+{
+    "role": "user"
+}
+
+###
+#get all user for admin
+GET http://localhost:5000/admin
+
+###
+#search data user
+POST http://localhost:5000/admin
+Content-Type: application/json
+
+{
+  "keyword": "hacking"
+}
+
+###
+#deleted
+DELETE http://localhost:5000/admin/deleted/8
+
+###
+#update user
+POST http://localhost:5000/me/update
+Content-Type: application/json
+
+{
+    "Name": "adli aja",
+    "email": "",
+    "password": "",
 }

@@ -18,5 +18,5 @@ const Codes = db.define('codes', {
 }, {
     freezeTableName:true
 })
-
+Users.hasOne(Codes, { foreignKey: 'email', sourceKey: 'email' });
 module.exports = Codes

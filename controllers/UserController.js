@@ -7,6 +7,7 @@ const nodemailer = require('nodemailer');
 const qrcode = require('qrcode');
 const fs = require('fs');
 const env = process.env;
+const path = require('path');
 
 class UserController {
   async register(req, res) {
@@ -66,6 +67,8 @@ class UserController {
         email: user.email
       })
 
+       const qrImagePath = path.join(__dirname, `../public/qrcode/${namaQr}.png`);
+
       const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -79,7 +82,13 @@ class UserController {
             from: env.MAIL_USERNAME,
             to: email,
             subject: "berhasil registrasi",
-            text: `awikwok awikawok nama : ${user.name} email : ${user.email}`
+            text: `awikwok awikawok nama : ${user.name} email : ${user.email}`,
+            attachments: [
+              {
+                filename: `${namaQr}.png`,
+                path: qrImagePath,
+              }
+            ]
         };
 
         transporter.sendMail(options, (err, info) => {
@@ -114,17 +123,33 @@ class UserController {
   //     }
 
   //     const { name, email, password, veryPassword } = req.body;
+  //     const emailChanged = email && email !== user.email;
 
-  //     if (email && email !== user.email) {
+  //     if (emailChanged) {
   //       const checkEmail = await Users.findOne({ where: { email } });
   //       if (checkEmail) {
   //         return res.status(409).json({ msg: "Email sudah terdaftar" });
   //       }
+  //     }
 
-  //       // Hapus QR code lama dari filesystem
-  //       const qrCodeFilePath = path.join('public', 'qrcode', `${user.qr}.png`);
-  //       fs.unlinkSync(qrCodeFilePath);
+  //     // Jika password kosong atau sama seperti yang lama, gunakan password yang ada di database
+  //     const newPassword = password ? await argon2.hash(password) : user.password;
 
+  //     // Update user data
+  //     await Users.update(
+  //       {
+  //         name,
+  //         email: emailChanged ? email : user.email, // Use the new email if changed, otherwise use the old email
+  //         password: newPassword,
+  //       },
+  //       {
+  //         where: {
+  //           id: userId
+  //         }
+  //       }
+  //     );
+
+  //     if (emailChanged) {
   //       // Buat QR code baru berdasarkan email yang baru
   //       const now = dayjs();
   //       const Y = now.year();
@@ -135,49 +160,32 @@ class UserController {
   //       const S = now.second();
   //       const isiQr = `http://localhost/scanner/${email}`;
   //       const namaQr = `${email}-${Y}-${M}-${D}-${H}-${I}-${S}`;
+
+  //       // Membuat QR code berdasarkan isiQr dan opsi yang diberikan
   //       qrcode.toDataURL(isiQr, { errorCorrectionLevel: 'H' }, async (err, url) => {
   //         if (err) {
   //           console.error('Terjadi kesalahan saat membuat QR code:', err);
   //           return res.status(500).json({ msg: 'Terjadi kesalahan saat membuat QR code' });
   //         }
+
+  //         // Simpan hasil QR code ke dalam file
   //         const qrCodeFilePathNew = path.join('public', 'qrcode', `${namaQr}.png`);
   //         fs.writeFileSync(qrCodeFilePathNew, url.split(',')[1], 'base64');
 
-  //         // Perbarui data pengguna dengan email baru dan QR code baru
-  //         await Users.update(
-  //           {
-  //             name,
-  //             email,
-  //             qr: namaQr,
-  //             password: password ? await argon2.hash(password) : user.password,
-  //           },
-  //           {
-  //             where: {
-  //               id: userId
-  //             }
-  //           }
-  //         );
+  //         // Update QR code data in the 'codes' table
+  //         const qrData = {
+  //           qr: namaQr,
+  //           email,
+  //         };
+  //         await Codes.update(qrData, { where: { email } });
+
+  //         // Hapus QR code lama dari filesystem
+  //         const qrCodeFilePathOld = path.join('public', 'qrcode', `${user.qr}.png`);
+  //         fs.unlinkSync(qrCodeFilePathOld);
 
   //         res.status(200).json({ msg: "Data pengguna berhasil diperbarui" });
   //       });
   //     } else {
-  //       // Jika email tidak diubah, tetap gunakan email yang ada di database
-  //       if (password && password !== veryPassword) {
-  //         return res.status(400).json({ msg: "Password tidak sama, silahkan masukan kembali" });
-  //       }
-
-  //       await Users.update(
-  //         {
-  //           name,
-  //           password: password ? await argon2.hash(password) : user.password,
-  //         },
-  //         {
-  //           where: {
-  //             id: userId
-  //           }
-  //         }
-  //       );
-
   //       res.status(200).json({ msg: "Data pengguna berhasil diperbarui" });
   //     }
   //   } catch (error) {
