@@ -9,7 +9,7 @@ const AdminController = require('../controllers/AdminController');
 const router =express.Router()
 
 router.get('/me', AuthController.Me);
-router.post('/me/update', UserController.UserUpdate)
+router.post('/me/update', AuthMiddleware.IsLogin, UserController.updateUser);
 
 router.post('/login', AuthMiddleware.IsTamu, AuthController.login);
 router.delete('/logout',  AuthMiddleware.IsLogin, AuthController.logout);

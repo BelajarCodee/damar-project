@@ -16,8 +16,8 @@ POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-    "email":"",
-    "password": ""
+    "email":"hackingtopia0057@gmail.com",
+    "password": "adliasu"
 }
 
 ###
@@ -76,8 +76,5 @@ POST http://localhost:5000/me/update
 Content-Type: application/json
 
 {
-  "name": "",
-  "email": "",
-  "password": "",
-  "veryPassword": ""
+  "name": "damar aja"
 }
