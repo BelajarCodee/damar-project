@@ -123,6 +123,22 @@ class UserController {
     }
   }
 
+  async getUserForUpdateUser(req,res){
+    const userId = req.session.userId;
+    try {
+      const user = await Users.findOne({
+        attributes: ['name', 'email'],
+        where:{
+          id: userId
+        }
+      });
+      res.status(201).json({ msg: user })
+    } catch (error) {
+      console.error('Terjadi kesalahan:', error);
+      return res.status(500).json({ msg: 'Terjadi kesalahan saat register' });
+    }
+  }
+
   async updateUser(req, res) {
     const user = req.body;
     const userId = req.session.userId;

@@ -10,6 +10,7 @@ const router =express.Router()
 
 router.get('/me', AuthMiddleware.IsLogin, AuthController.Me);
 router.post('/me/update', AuthMiddleware.IsLogin, UserController.updateUser);
+router.get('/me/update', AuthMiddleware.IsLogin, UserController.getUserForUpdateUser);
 
 router.post('/login', AuthMiddleware.IsTamu, AuthController.login);
 router.delete('/logout',  AuthMiddleware.IsLogin, AuthController.logout);
