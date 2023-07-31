@@ -93,7 +93,6 @@ class UserController {
                   <h1>Selamat Datang, ${user.name}!</h1>
                   <p>Registrasi Anda berhasil.</p>
                   <p>Ini adalah QR Code Anda:</p>
-                  <img src="cid:qrcode" alt="QR Code" />
                   <p>Terima kasih telah bergabung!</p>
                 </body>
               </html>
@@ -215,7 +214,6 @@ class UserController {
               <h1>Selamat Datang, ${user.name}!</h1>
               <p>update Anda berhasil.</p>
               <p>Ini adalah QR Code Anda:</p>
-              <img src="cid:qrcode" alt="QR Code" />
               <p>Terima kasih telah bergabung!</p>
             </body>
           </html>

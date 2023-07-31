@@ -37,6 +37,7 @@ app.use(session({
 app.use(cors())
 app.use(express.json())
 app.use(UsersRoute)
+app.use(express.static('public'));
 
 app.listen(PORT, ()=>{
     console.log(`SERVER TELAH BERJALAN DI http://localhost:${PORT}`);
