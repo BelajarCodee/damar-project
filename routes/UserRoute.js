@@ -18,10 +18,10 @@ router.post('/register',  AuthMiddleware.IsTamu, UserController.register);
 router.get('/scanner/:email', AuthMiddleware.IsScanner, ScannerController.CheckKehadiran);
 router.post('/scanner/:email', AuthMiddleware.IsScanner, ScannerController.UpdateKehadiran);
 
-router.get('/admin', AuthMiddleware.IsAdmin, AdminController.getAllUser);
+router.get('/admin', AdminController.getAllUser);
 router.post('/admin', AuthMiddleware.IsAdmin, AdminController.searchUser);
 router.post('/admin/create', AuthMiddleware.IsAdmin, AdminController.CreateUser);
-router.delete('/admin/deleted/:id', AuthMiddleware.IsAdmin, AdminController.deleteUser);
+router.delete('/admin/deleted/:id', AdminController.deleteUser);
 router.delete('/admin/deleted', AuthMiddleware.IsAdmin, AdminController.deletedAllUser)
 
 

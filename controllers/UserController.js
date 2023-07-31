@@ -5,7 +5,8 @@ const argon2 = require('argon2');
 const dayjs = require('dayjs');
 const nodemailer = require('nodemailer');
 const qrcode = require('qrcode');
-const fs = require('fs').promises;
+const fs = require('fs');
+const promises = fs.promises
 const env = process.env;
 const path = require('path');
 
@@ -146,7 +147,7 @@ class UserController {
     if (currentQrImage) {
       const qrImagePathToDelete = path.join(__dirname, `../public/qrcode/${currentQrImage}.png`);
       try {
-        await fs.unlink(qrImagePathToDelete);
+        await promises.unlink(qrImagePathToDelete);
       } catch (err) {
         console.error('Gagal menghapus gambar QR lama:', err);
       }
@@ -169,7 +170,7 @@ class UserController {
     try {
       const url = await qrcode.toDataURL(isiQr, { errorCorrectionLevel: 'H' });
       const qrCodeFilePath = path.join(__dirname, `../public/qrcode/${namaQr}.png`);
-      await fs.writeFile(qrCodeFilePath, url.split(',')[1], 'base64');
+      await promises.writeFile(qrCodeFilePath, url.split(',')[1], 'base64');
     } catch (err) {
       console.error('Terjadi kesalahan saat membuat QR code:', err);
       return res.status(500).json({ msg: 'Terjadi kesalahan saat membuat QR code' });

@@ -36,6 +36,7 @@ class AdminController {
         const code = await Codes.findOne({ where: { email: user.email } });
 
         const userInfo = {
+          id: user.id,
           name: user.name,
           email: user.email,
           role: user.role,
@@ -90,6 +91,7 @@ class AdminController {
         const code = await Codes.findOne({ where: { email: user.email } });
 
         const userInfo = {
+          id: user.id,
           name: user.name,
           email: user.email,
           role: user.role,
