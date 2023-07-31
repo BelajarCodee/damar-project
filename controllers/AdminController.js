@@ -244,6 +244,51 @@ class AdminController {
       return res.status(500).json({ msg: "Terjadi kesalahan server" });
     }
   }
+
+  async deletedAllUser(req, res) {
+    try {
+      // Menghapus semua pengguna dengan role "user" dari tabel Users
+      const deletedUsers = await Users.destroy({
+        where: {
+          role: "user",
+        },
+      });
+
+      // Jika tidak ada pengguna dengan role "user" yang dihapus, kirimkan respons bahwa tidak ada pengguna yang dihapus.
+      if (deletedUsers === 0) {
+        return res.status(404).json({ msg: "Tidak ada pengguna dengan role 'user' yang dihapus" });
+      }
+
+      // Hapus semua gambar QR terkait di folder 'public/qrcode'
+      const qrImagesPath = path.join(__dirname, '../public/qrcode');
+
+      fs.readdir(qrImagesPath, (err, files) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).json({ msg: "Terjadi kesalahan saat menghapus gambar QR" });
+        }
+
+        files.forEach((file) => {
+          // Periksa apakah file memiliki ekstensi ".png" dan memuat email pengguna yang dihapus
+          if (file.endsWith('.png') && file.includes('@') && file.startsWith('user')) {
+            const qrImagePath = path.join(qrImagesPath, file);
+
+            // Hapus file gambar QR
+            fs.unlink(qrImagePath, (err) => {
+              if (err) {
+                console.error(err);
+              }
+            });
+          }
+        });
+      });
+
+      return res.status(200).json({ msg: "Semua pengguna dengan role 'user' telah dihapus" });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ msg: "Terjadi kesalahan server" });
+    }
+  }
 }
 
 module.exports = new AdminController();

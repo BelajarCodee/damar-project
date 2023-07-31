@@ -20,6 +20,10 @@ class UserController {
         return res.status(403).json({ msg: "Pendaftaran sudah penuh" });
       };
 
+      if(user.password.length < 8){
+        return res.status(403).json({ msg: "Password minimal harus 8 karakter" });
+      }
+
       if (user.password !== user.veryPassword) {
         return res.status(401).json({ msg: "Password tidak sama, silahkan masukan kembali" });
       };
@@ -40,7 +44,7 @@ class UserController {
       const I = now.minute();
       const S = now.second();
 
-      const isiQr = `http://localhost/scanner/${user.email}`;
+      const isiQr = `${env.APP_DOMAIN}/scanner/${user.email}`;
       const namaQr = `${user.email}-${Y}-${M}-${D}-${H}-${I}-${S}`;
 
       // Membuat QR code berdasarkan isiQr dan opsi yang diberikan
@@ -158,7 +162,7 @@ class UserController {
     const I = now.minute();
     const S = now.second();
 
-    const isiQr = `http://localhost/scanner/${user.email}`;
+    const isiQr = `${env.APP_DOMAIN}/scanner/${user.email}`;
     const namaQr = `${user.email}-${Y}-${M}-${D}-${H}-${I}-${S}`;
 
     // Membuat QR code berdasarkan isiQr dan opsi yang diberikan
@@ -208,7 +212,7 @@ class UserController {
           <html>
             <body style="font-family: Arial, sans-serif;">
               <h1>Selamat Datang, ${user.name}!</h1>
-              <p>Registrasi Anda berhasil.</p>
+              <p>update Anda berhasil.</p>
               <p>Ini adalah QR Code Anda:</p>
               <img src="cid:qrcode" alt="QR Code" />
               <p>Terima kasih telah bergabung!</p>
